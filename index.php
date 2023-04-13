@@ -176,6 +176,10 @@ switch (ENVIRONMENT)
 
 	define('VIEWPATH', $view_folder.DIRECTORY_SEPARATOR);
 
+	$url = explode('.', $_SERVER['HTTP_HOST']);
+	if(count($url) > 2) {
+		$_SERVER['subdomain'] = $url[0];
+	}
 /*
  * --------------------------------------------------------------------
  * LOAD THE BOOTSTRAP FILE
@@ -183,4 +187,5 @@ switch (ENVIRONMENT)
  *
  * And away we go...
  */
+require_once 'vendor/autoload.php';
 require_once BASEPATH.'core/CodeIgniter.php';

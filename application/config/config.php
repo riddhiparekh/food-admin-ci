@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
+date_default_timezone_set("Asia/Kolkata");
 $request_type = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on'?'https://':'http://';
 
 $config['base_url'] = $request_type.$_SERVER['HTTP_HOST'].'/';
@@ -11,12 +11,16 @@ define('ASSET_URL', $config['base_url'].'public/');
 define('ADMIN_ASSET_URL', $config['base_url'].'admin_assets/');
 define('IMG_UPLOAD_LOCATION', APPPATH.'../public/images/');
 
+$api_subdomain = 'app';
+$admin_subdomain = 'admin';
+
+
 $config['index_page'] = 'index.php';
 $config['uri_protocol']	= 'REQUEST_URI';
 $config['url_suffix'] = '';
 $config['language']	= 'english';
 $config['charset'] = 'UTF-8';
-$config['enable_hooks'] = FALSE;
+$config['enable_hooks'] = TRUE;
 $config['subclass_prefix'] = 'MY_';
 $config['composer_autoload'] = FALSE;
 $config['permitted_uri_chars'] = 'a-z 0-9~%.:_\-';
@@ -55,15 +59,31 @@ $config['csrf_expire'] = 7200;
 $config['csrf_regenerate'] = TRUE;
 $config['csrf_exclude_uris'] = array();
 $config['compress_output'] = FALSE;
-$config['time_reference'] = 'local';
+$config['time_reference'] = 'Asia/Kolkata';
 $config['rewrite_short_tags'] = FALSE;
 $config['proxy_ips'] = '';
 
+$config['single_login'] = false;
+
+$subdomain = isset($_SERVER['subdomain']) ? $_SERVER['subdomain'] : '';
+if($subdomain == $api_subdomain) {
+	define('ACCESS_GUARD', 'api');
+} else if ($subdomain == $admin_subdomain){
+	define('ACCESS_GUARD', 'admin');
+} else {
+	define('ACCESS_GUARD', 'web');
+}
 // custom configs
-$config['series_img_upload'] = [
-	'max_size' => '700',
-	'upload_path' => IMG_UPLOAD_LOCATION.'series/',
-	'allowed_types' => 'jpg|png|webp',
+$config['category_banner_upload'] = [
+	'upload_path' => IMG_UPLOAD_LOCATION.'category/',
+	'allowed_types' => 'gif|jpg|png',
+	'max_size' => 2000,
+	'encrypt_name' => false
+];
+$config['product_img_upload'] = [
+	'upload_path' => IMG_UPLOAD_LOCATION.'product/',
+	'allowed_types' => 'gif|jpg|png',
+	'max_size' => 2000,
 	'encrypt_name' => false
 ];
 

@@ -19,7 +19,7 @@
 					<div class="card mb-0">
 						<div class="card-body">
 							<div class="text-center mb-3">
-								<img src="http://readrealm.tk/public/images/logo/logo.png" class="rounded-round">
+								<img src="<?= ASSET_URL ?>images/logo/ajax-loader.gif" class="rounded-round">
 								<h5 class="mb-0">Login to your account</h5>
 								<span class="d-block text-muted">Enter your credentials below</span>
 							</div>
@@ -54,7 +54,7 @@
 	</div>
 	<!-- /page content -->
 <script type="text/javascript">
-	<?php if ($errMsg) { ?>
+	<?php if (isset($errMsg)) { ?>
 	$(function() {
 		alertNotification('<?= $errMsg ?>','error');
     });

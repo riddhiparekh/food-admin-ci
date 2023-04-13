@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class ContentCtrl extends CI_Controller {
 	function __construct() {
         parent::__construct();
-        AdminAuthenticator();
+        Auth::check();
         $this->load->helper('file');
     }
 	public function index($page = '')

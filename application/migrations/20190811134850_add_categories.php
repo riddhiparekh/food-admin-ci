@@ -15,10 +15,16 @@ class Migration_Add_categories extends CI_Migration {
 				'auto_increment' => TRUE
 			),
 			'name' => array(
-				'type' => 'CHAR',
+				'type' => 'VARCHAR',
 				'constraint' => '127',
 				'null' => TRUE,
 				'default' => NULL
+			),
+			
+			'is_active' => array(
+				'type' => 'BOOLEAN',
+				'null' => FALSE,
+				'default' => 0
 			),
 			'parent_id' => array(
 				'type' => 'INT',
@@ -30,7 +36,7 @@ class Migration_Add_categories extends CI_Migration {
 		$this->dbforge->add_field($fields);
 		$this->dbforge->add_field("`created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP");
 		$this->dbforge->add_field("`updated_at` TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP");
-		$this->dbforge->add_field("`deleted_at` TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00'");
+		$this->dbforge->add_field("`deleted_at` TIMESTAMP NULL DEFAULT NULL");
 		$this->dbforge->add_key('id', TRUE);
 		$this->dbforge->create_table('categories');
 	}

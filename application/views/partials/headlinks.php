@@ -7,5 +7,6 @@
 <link href="<?= ADMIN_ASSET_URL ?>css/layout.min.css" rel="stylesheet" type="text/css">
 <link href="<?= ADMIN_ASSET_URL ?>css/components.min.css" rel="stylesheet" type="text/css">
 <link href="<?= ADMIN_ASSET_URL ?>css/colors.min.css" rel="stylesheet" type="text/css">
+<link rel="icon" href="<?= ASSET_URL ?>images/icons/pizza_slice.ico" type="image/ico" sizes="16x16">
 <style type="text/css">.sidebar *::-webkit-scrollbar{display: none;}</style>
 <!-- /global stylesheets -->

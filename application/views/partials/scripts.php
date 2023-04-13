@@ -14,7 +14,8 @@
 <!-- /theme JS files -->	
 <script type="text/javascript">
 	var invalid_form = true;
-	var option_push = '';
+    var option_push = '';
+    var tbl;
 	function alertNotification(msg,type) {
 		if (typeof Noty == 'undefined') {
 		    console.warn('Warning - noty.min.js is not loaded.');
@@ -61,16 +62,29 @@
 		        });
 				$(modalBody).html(d);
 				option_push = selectElem;
-				$('.custom-file-upload').uniform({fileButtonClass: 'action btn bg-teal-400'});
-				$('.keyword-input').tokenfield();
+				$('.form-input-styled').uniform({fileButtonClass: 'action btn bg-info-800'});
+                $('.keyword-input').tokenfield();
+                if (typeof reInitInputs === "function") { 
+                    reInitInputs();
+                }
 			}
 		});
 	}
 	$(document).ready(function(){
+        $.extend( $.fn.dataTable.defaults, {
+            autoWidth: false,
+            dom: '<"datatable-header"fBl><"datatable-scroll-wrap"t><"datatable-footer"ip>',
+            language: {
+                search: '<span>Filter:</span> _INPUT_',
+                searchPlaceholder: 'Type to filter...',
+                lengthMenu: '<span>Show:</span> _MENU_',
+                paginate: { 'first': 'First', 'last': 'Last', 'next': $('html').attr('dir') == 'rtl' ? '&larr;' : '&rarr;', 'previous': $('html').attr('dir') == 'rtl' ? '&rarr;' : '&larr;' }
+            }
+        });
 		var url = window.location.href.replace(/\/\d+$/, "");
-		$('a[href$="'+url+'"]').addClass('active');
-		$('a.nav-link.active').parents('.nav-item').addClass('nav-item-open');
-		$('a.nav-link.active').parents('.nav-group-sub').show();
+		$('.sidebar a[href$="'+url+'"]').addClass('active');
+		$('.sidebar a.nav-link.active').parents('.nav-item').addClass('nav-item-open');
+		$('.sidebar a.nav-link.active').parents('.nav-group-sub').show();
 		$('body').on('submit','.ajax-action-form',function(e){
 			e.preventDefault();
 			if (invalid_form) {
@@ -87,7 +101,7 @@
 				data: form,
 				dataType: 'json',
 				success: function(a){
-					if (a.status == 'success') {
+					if (a.status) {
 						alertNotification(a.msg,'success');
 						if (option_push != '') {
 							$(option_push).append(new Option(a.data.value,a.data.id));
@@ -102,6 +116,13 @@
 					}
 				}
 			});
-		});
+        });
+        $(".digit").keypress(function (e) 
+        {
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) 
+            {
+                return false;
+            }
+        });
 	});
 </script>

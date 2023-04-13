@@ -10,5 +10,4 @@ class Migrate extends CI_Controller {
         echo 'Migrations ran successfully!';
     }
   }
-
 }

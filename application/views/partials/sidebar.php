@@ -1,6 +1,6 @@
 <!-- Main sidebar -->
 <?php
-$auth_admin_data = $this->session->userdata('auth_admin_data');
+$auth_admin_data = Auth::get();
 ?>
 <div class="sidebar sidebar-dark sidebar-main sidebar-fixed sidebar-expand-md">
 	<div class="sidebar-mobile-toggler text-center">
@@ -22,7 +22,7 @@ $auth_admin_data = $this->session->userdata('auth_admin_data');
 					</div>
 
 					<div class="media-body">
-						<div class="media-title font-weight-semibold"><?= $auth_admin_data['first_name'].' '.$auth_admin_data['last_name'] ?></div>
+						<div class="media-title font-weight-semibold"><?= explode('@', $auth_admin_data['email'])[0] ?></div>
 					</div>
 				</div>
 			</div>
@@ -38,42 +38,65 @@ $auth_admin_data = $this->session->userdata('auth_admin_data');
 					</a>
 				</li>
 				<li class="nav-item">
-					<a href="<?= base_url('/category') ?>" class="nav-link">
+					<a href="<?= base_url('category') ?>" class="nav-link">
 						<i class="icon-tree6"></i>
 						<span>Category</span>
 					</a>
 				</li>
-				<li class="nav-item nav-item-submenu">
-					<a href="javascript:void(0)" class="nav-link">
-						<i class="fa fa-book"></i>
-						<span>Books</span>
+				<li class="nav-item">
+					<a href="<?= base_url('product') ?>" class="nav-link">
+						<i class="icon-cube4"></i>
+						<span>Product</span>
 					</a>
-					<ul class="nav nav-group-sub">
-						<li class="nav-item">
-							<a href="<?= base_url('/book') ?>" class="nav-link">
-								<i class="icon-book2"></i>
-								<span>Add / Edit Book</span>
-							</a>
-						</li>
-						<li class="nav-item">
-							<a href="<?= base_url('/books') ?>" class="nav-link">
-								<i class="icon-archive"></i>
-								<span>Book List</span>
-							</a>
-						</li>
-					</ul>
 				</li>
-				<li class="nav-item nav-item-submenu">
-					<a href="javascript:void(0)" class="nav-link">
-						<i class="icon-meter2"></i>
-						<span>Content Pages</span>
+				<li class="nav-item">
+					<a href="<?= base_url('coupon') ?>" class="nav-link">
+						<i class="icon-price-tag3"></i>
+						<span>Coupons</span>
 					</a>
-					<ul class="nav nav-group-sub">
-						<li class="nav-item">
-							<a href="<?= base_url('/content/dmca') ?>" class="nav-link">
-								<span>DMCA</span>
-							</a>
-						</li>
+				</li>
+				<li class="nav-item">
+					<a href="<?= base_url('delivery-boy') ?>" class="nav-link">
+						<i class="icon-truck"></i>
+						<span>Delivery Boy</span>
+					</a>
+				</li>
+				<li class="nav-item">
+					<a href="<?= base_url('orders') ?>" class="nav-link">
+						<i class="icon-cart2"></i>
+						<span>Orders</span>
+					</a>
+				</li>
+                <?php
+                    if (0) {
+                ?> 
+                    <li class="nav-item nav-item-submenu">
+                        <a href="javascript:void(0)" class="nav-link">
+                            <i class="icon-meter2"></i>
+                            <span>Content Pages</span>
+                        </a>
+                        <ul class="nav nav-group-sub">
+                            <li class="nav-item">
+                                <a href="<?= base_url('content/dmca') ?>" class="nav-link">
+                                    <span>DMCA</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                <?php
+                    }
+                ?>
+				<li class="nav-item nav-item-submenu">
+					<a href="#" class="nav-link"><i class="icon-earth"></i> <span>Website</span></a>
+
+					<ul class="nav nav-group-sub" data-submenu-title="Layouts">
+						<li class="nav-item"><a href="<?= base_url('website/about') ?>" class="nav-link">About</a></li>
+						<li class="nav-item"><a href="<?= base_url('website/features') ?>" class="nav-link">Features</a></li>
+						<li class="nav-item"><a href="<?= base_url('website/benifits') ?>" class="nav-link">Benifits</a></li>
+						<li class="nav-item"><a href="<?= base_url('website/feedbacks') ?>" class="nav-link">Feedbacks</a></li>
+						<li class="nav-item"><a href="<?= base_url('website/screenshots') ?>" class="nav-link">Screenshots</a></li>
+						<li class="nav-item"><a href="<?= base_url('website/downloads') ?>" class="nav-link">Downloads</a></li>
+						<li class="nav-item"><a href="<?= base_url('website/contact') ?>" class="nav-link">Contact</a></li>
 					</ul>
 				</li>
 			</ul>

@@ -49,7 +49,7 @@ class CommonModel extends CI_Model {
 			
 		}
 		$this->db->where($cond);
-		return $this->db->get($table)->count_all_results();
+		return $this->db->from($table)->count_all_results();
 	}
 	function getWithJoinData($cond,$table,$join = array(),$rand = NULL,$limit = 0)
 	{
@@ -120,8 +120,11 @@ class CommonModel extends CI_Model {
 		}
 		if (!isset($data['order_dir'])) {
 			$data['order_dir'] = 'asc';
-		}
-		$this->db->select($data['select']);
+        }
+        if($result_type != 'count') {
+            $this->db->select($data['select']);
+        }
+		
 		if (isset($data['condition']) && is_array($data['condition']) && count($data['condition'])) {
 			$this->db->where($data['condition']);
 		}
@@ -139,37 +142,11 @@ class CommonModel extends CI_Model {
 			$this->db->order_by($data['order_by'],$data['order_dir']);
 			$this->db->limit($data['limit'],$data['offset']);
 		}
-		$query = $this->db->get($data['table']);
-		if ($result_type == 'array') {
-			return $query->result_array();
-		}elseif ($result_type == 'count') {
+        $query = $this->db->from($data['table']);
+        if ($result_type == 'count') {
 			return $query->count_all_results();
-		}
-		return $query->result();
-	}
-	function datatableQueryCount($data,$join = array())
-	{
-		if (!isset($data['table'])) {
-			return array();
-		}
-		if (!isset($data['select'])) {
-			$data['select'] = '*';
-		}
-		$this->db->select($data['select']);
-		if (isset($data['condition']) && is_array($data['condition']) && count($data['condition'])) {
-			$this->db->where($data['condition']);
-		}
-		if(count($join)){
-			foreach($join as $j){
-				if(@$j['type'] == ''){
-					$this->db->join($j['table'],$j['on']);
-				}
-				else{
-					$this->db->join($j['table'],$j['on'],$j['type']);
-				}	
-			}
-		}
-		$query = $this->db->get($data['table']);
+        }
+        $query = $query->get();
 		if ($result_type == 'array') {
 			return $query->result_array();
 		}
